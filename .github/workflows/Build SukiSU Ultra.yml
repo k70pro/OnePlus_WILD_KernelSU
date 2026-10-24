@@ -234,6 +234,9 @@ jobs:
           export KSUVER=$(expr $KSU_VERSION_COUNT + 37185)
           echo "KSUVER=$KSUVER" >> $GITHUB_ENV
 
+          # 修补新版clang对 event.c 377行 指针/值类型不兼容的硬错误
+          sed -i 's/USER_ARG_NULL, gfp)/(*USER_ARG_NULL), gfp)/' sulog/event.c
+
           echo "✅ SukiSU Ultra 配置完成（上游版本号已改为 Makefile 自动计算）"
 
       - name: 🔧 Setup Patches | 配置补丁
